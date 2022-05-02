@@ -1,9 +1,7 @@
 import React from 'react';
-
 import image1 from '../../../images/banner/st-stationary-1.png';
 import image2 from '../../../images/banner/st-stationary-2.png';
 import image3 from '../../../images/banner/st-stationary-3.png';
-
 
 
 const Slider = () => {
