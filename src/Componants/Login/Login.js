@@ -2,14 +2,25 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import Navber from '../../Shared/Header/Navber/Navber';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from './../../Firebase.init';
 
 const Login = () => {
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+    }
     return (
         <div>
             <Navber></Navber>
             <div className="container w-50 mx-auto">
                 <h2 className='text-3xl text-center my-2'>LOGIN</h2>
-                <form>
+                <form onSubmit={handleLogin}>
 
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -32,10 +43,15 @@ const Login = () => {
 
                     <p className="text-danger">Don't have an account? <Link to="/register"><span className="text-primary">Register Please</span></Link> </p>
                 </form>
+                <div className='d-flex align-items-center'>
+                    <hr className='w-50 mx-auto' />
+                    <span>or</span>
+                    <hr className='w-50 mx-auto' />
+                </div>
+                <div className='container text-center'>
+                    <button className='btn btn-info' onClick={handleGoogleSignIn}>Google Login</button>
+                </div>
             </div>
-
-
-
         </div>
     );
 };
