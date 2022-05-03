@@ -9,6 +9,7 @@ import Login from './Componants/Login/Login';
 import ManageItems from './Componants/ManageItems/ManageItems';
 import MyItems from './Componants/MyItems/MyItems';
 import Notfound from './Componants/Notfound/Notfound';
+import Register from './Componants/Register/Register';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/addItem" element={<AddItem></AddItem>} />
         <Route path="/about" element={<About></About>} />
         <Route path="/login" element={<Login></Login>} />
+        <Route path="/register" element={<Register></Register>} />
         <Route path="/*" element={<Notfound></Notfound>} />
 
       </Routes>
