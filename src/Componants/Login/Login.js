@@ -125,7 +125,6 @@ const Login = () => {
 
                     <button className="btn btn-primary">Login</button>
                     <ToastContainer />
-
                     <p className="text-danger">Don't have an account? <Link to="/register"><span className="text-primary">Register Please</span></Link> </p>
                 </form>
                 <div className='d-flex'>

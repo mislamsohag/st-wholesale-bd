@@ -12,6 +12,7 @@ import Notfound from './Componants/Notfound/Notfound';
 import OurProducts from './Componants/OurProduts/OurProducts';
 import PrivateRoute from './Componants/PrivateRoute/PrivateRoute';
 import Register from './Componants/Register/Register';
+import ProductDetails from './Componants/ProductDetails/ProductDetails';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/ourProducts" element={<OurProducts />} />
+        <Route path="/pDetails" element={<ProductDetails />} />
         <Route path="/myItems" element={
           <PrivateRoute>
             <MyItems />
