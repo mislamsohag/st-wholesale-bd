@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../Firebase.init';
 import Navber from '../../Shared/Header/Navber/Navber';
 
@@ -38,7 +39,13 @@ const AddItem = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                event.target.reset(); //মূলত এর মাধ্যমে ইনপুট ফিল্ড খালি করে।
+                if (!data.success) {
+                    return toast.error(data.error)
+                } else {
+                    toast.success(data.message);
+                    event.target.reset(); //মূলত এর মাধ্যমে ইনপুট ফিল্ড খালি করে।
+                }
+
             });
 
     }
@@ -59,7 +66,7 @@ const AddItem = () => {
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Product Name</label>
 
-                            <input type="text" className="form-control" name="pName" aria-describedby="emailHelp" required />
+                            <input type="text" className="form-control" name="pName" aria-describedby="emailHelp" />
                         </div>
 
                         <div className="mb-3">

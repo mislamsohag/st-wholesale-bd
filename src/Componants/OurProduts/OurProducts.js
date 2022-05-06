@@ -1,9 +1,12 @@
 import Navber from '../../Shared/Header/Navber/Navber';
 import { Link, NavLink } from 'react-router-dom';
 import useProducts from '../../Hooks/useProducts';
+import { useState } from 'react';
 
 const OurProducts = () => {
     const [products] = useProducts();
+
+    const [page, setpage] = useState(2);
 
     return (
         <div>
@@ -28,6 +31,11 @@ const OurProducts = () => {
                                 </NavLink>
                             </div>
                         ))
+                    }
+                </div>
+                <div className='d-flex justify-content-end'>
+                    {
+                        [...Array(page).keys()].map(number => <div className='mx-3 border border-dark px-3 py-1'>{number + 1}</div>)
                     }
                 </div>
             </section>
