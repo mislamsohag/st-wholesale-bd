@@ -1,8 +1,17 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+
 import logo from '../../../images/logo.png';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import auth from './../../../Firebase.init';
 
 const Navber = () => {
+    const [user, loading, error] = useAuthState(auth);
+
+    const logout = () => {
+        signOut(auth);
+    };
     return (
         <>
             <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -17,6 +26,9 @@ const Navber = () => {
                                 <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link active" aria-current="page" to="/ourProducts">Our Products</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/myItems">My Items</Link>
                             </li>
                             <li className="nav-item">
@@ -27,7 +39,11 @@ const Navber = () => {
                             </li>
                         </ul>
                         <div className="d-flex">
-                            <Link className="nav-link" to="/login">Login</Link>
+                            {
+                                user ? <span>{user.displayName}
+                                    <button className='btn btn-light' onClick={logout} >Log Out</button>
+                                </span> : <Link className="nav-link" to="/login">Login</Link>
+                            }
                         </div>
                     </div>
                 </div>
