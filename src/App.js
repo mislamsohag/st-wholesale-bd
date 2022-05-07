@@ -13,6 +13,7 @@ import OurProducts from './Componants/OurProduts/OurProducts';
 import PrivateRoute from './Componants/PrivateRoute/PrivateRoute';
 import Register from './Componants/Register/Register';
 import ProductDetails from './Componants/ProductDetails/ProductDetails';
+import ProductUpdate from './Componants/ProductUpdate/ProductUpdate';
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/ourProducts" element={<OurProducts />} />
         <Route path="/ourProducts/:_id" element={<ProductDetails />} />
+        <Route path="/ourProducts/:_id" element={<ProductUpdate />} />
         <Route path="/myItems" element={
           <PrivateRoute>
             <MyItems />
@@ -32,6 +34,11 @@ function App() {
         <Route path="/manageItems" element={
           <PrivateRoute>
             <ManageItems />
+          </PrivateRoute>
+        } />
+        <Route path="/manageItems/:_id" element={
+          <PrivateRoute>
+            <ProductUpdate />
           </PrivateRoute>
         } />
         <Route path="/addItem" element={

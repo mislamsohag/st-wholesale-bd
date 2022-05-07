@@ -1,34 +1,52 @@
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { toast, ToastContainer } from 'react-toastify';
-import auth from '../../Firebase.init';
-import Navber from '../../Shared/Header/Navber/Navber';
+// import React, { useEffect, useState } from 'react';
+// import { useParams } from 'react-router-dom';
 
-const AddItem = () => {
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import auth from "../../Firebase.init";
+import Navber from "../../Shared/Header/Navber/Navber";
+
+const ProductUpdate = () => {
     const [user, loading, error] = useAuthState(auth);
+    // const { _id } = useParams();
+    // const [details, setDetails] = useState([]);
+    // const [productDetails, setProductDetail] = useState([]);
 
-    const handleProductUpload = (event) => {
+
+    // useEffect(() => {
+    //     fetch("http://localhost:5000/ourProducts")
+    //         .then(res => res.json())
+    //         .then(data => setDetails(data))
+    // }, []);
+
+    // // console.log(_id, details)
+
+    // useEffect(() => {
+    //     if (details.length > 0) {
+    //         const matchData = details.find(detail => detail._id === _id)
+    //         setProductDetail(matchData)
+    //     }
+    //     console.log(productDetails)
+
+    // }, [details, _id, productDetails]);
+
+
+    const handleProductUpdate = (event) => {
         event.preventDefault();
-        const id = event.target.pId.value;
-        const name = event.target.pName.value;
         const image = event.target.imgLink.value;
         const description = event.target.pDetails.value;
         const quantity = event.target.pQuantity.value;
-        const supplier = event.target.sName.value;
         const price = event.target.pPrice.value;
-        // console.log(id, name, image, description, quantity, supplier, price);
+        console.log(image, description, quantity, price);
 
         const url = 'http://localhost:5000/uploadItem';
 
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-                id,
-                name,
                 image,
                 description,
                 quantity,
-                supplier,
                 price
             }),
             headers: {
@@ -45,35 +63,21 @@ const AddItem = () => {
                     toast.success(data.message);
                     event.target.reset(); //মূলত এর মাধ্যমে ইনপুট ফিল্ড খালি করে।
                 }
-
             });
-
     }
 
     return (
         <>
             <Navber></Navber>
             <div className='container'>
-                <h2 className='text-center'>New Products Upload Form</h2>
+                <h2 className='text-center'>Products Update Form</h2>
                 <div className='w-50  mx-auto'>
-                    <form onSubmit={handleProductUpload}>
-
-                        <div className="mb-3">
-                            <label className="form-label">Product Id</label>
-
-                            <input type="text" className="form-control" name="pId" required />
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputEmail1" className="form-label">Product Name</label>
-
-                            <input type="text" className="form-control" name="pName" aria-describedby="emailHelp" />
-                        </div>
+                    <form onSubmit={handleProductUpdate}>
 
                         <div className="mb-3">
                             <label className="form-label">Image Link</label>
 
-                            <input type="text" className="form-control" name="imgLink" required />
+                            <input type="text" className="form-control" name="imgLink" />
                         </div>
 
                         <div className="mb-3">
@@ -94,14 +98,7 @@ const AddItem = () => {
                             <input type="text" className="form-control" name="pPrice" required />
                         </div>
 
-                        <div className="mb-3">
-                            <label className="form-label">Supplier Name</label>
-
-                            <input type="text" className="form-control" name="sName" required />
-                        </div>
-
-                        <button type="submit" className="btn btn-primary">Upload</button>
-                        <ToastContainer />
+                        <button type="submit" className="btn btn-primary">Update</button>
                     </form>
                 </div>
             </div>
@@ -109,4 +106,4 @@ const AddItem = () => {
     );
 };
 
-export default AddItem;
+export default ProductUpdate;

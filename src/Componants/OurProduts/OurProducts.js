@@ -59,21 +59,3 @@ const OurProducts = () => {
 };
 
 export default OurProducts;
-
-
-
-/*<div className='col-sm-12 col-md-6 col-lg-4 g-3' key={product._id}>
-                                <NavLink className='nav-link' to={product.id}>
-                                    <div className="card" >
-                                        <img src={product.image} className="card-img-top" alt="Product Image" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{product.name}</h5>
-                                            <div className='d-flex d-flex justify-content-between text-body mt-3'>
-                                                <p className='m-0 p-0'>৳ {product.price}</p>
-                                                <p className='m-0 p-0'>Stock : </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </NavLink>
-                            </div> */
-

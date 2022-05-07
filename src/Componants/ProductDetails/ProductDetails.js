@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Navber from '../../Shared/Header/Navber/Navber';
 
 const ProductDetails = () => {
@@ -39,10 +39,21 @@ const ProductDetails = () => {
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h3 className="card-title">{productDetails.name}</h3>
+                                <h3 className="card-title text-secondary">{productDetails.name}</h3>
                                 <p className="card-text"> Proroduct description : {productDetails.description}</p>
-                                <p>Suppliyer: {productDetails.supplier}</p>
+                                <p>Suppliyer:<span className='text-primary'> {productDetails.supplier}</span></p>
                                 <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+
+                                <div className='mt-5 d-flex justify-content-between'>
+                                    <span className='bg-secondary px-3 rounded py-2 text-white'>৳ {productDetails.price}</span>
+
+                                    <Link to="/" className='btn btn-primary px-3 rounded py-2 text-white'>Buy Now</Link>
+
+                                    <span className='bg-secondary px-3 rounded py-2 text-white'>
+                                        Stock :
+                                    </span>
+
+                                </div>
                             </div>
                         </div>
                     </div>
