@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navber from '../../Shared/Header/Navber/Navber';
 import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from './../../Firebase.init';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [signInWithEmail, signInWithEmailUser, signInWithEmailLoading, signInWithEmailError] = useSignInWithEmailAndPassword(auth);
@@ -93,6 +93,7 @@ const Login = () => {
                 case "auth/invalid-password": toast("Your password is wrong");
                     break;
 
+                default: toast("something went wrong")
                 // default: toast("something went wrong")
             }
         }

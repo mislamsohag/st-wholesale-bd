@@ -26,7 +26,7 @@ const OurProducts = () => {
                         products?.length ? products?.map(product =>
                             <div key={product._id} className='col-sm-12 col-md-6 col-lg-4 g-3'>
                                 <NavLink className='nav-link' to={product._id}>
-                                    <div className="card" >
+                                    <div className="card h-100" >
                                         <img src={product.image} className="card-img-top" alt="Product Image" />
                                         <div className="card-body">
                                             <h5 className="card-title">{product.name}</h5>

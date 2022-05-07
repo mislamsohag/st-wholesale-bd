@@ -15,11 +15,22 @@ const ManageItems = () => {
 
     }, [limit, pageNumber]);
 
+    //ক্লায়েন্ট সাইট ও সার্ভার সাইট থেকে ডাটা ডিলিট করার ফর্মূলা।
     const handleProductDelete = (id) => {
         const proceed = window.confirm("Are you sure you want to delete?")
         if (proceed) {
-
-            console.log("You are delete thisi Product", id)
+            const url = (`http://localhost:5000/ourProducts/${id}`)
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        const remaining = products.filter(product => product._id !== id)
+                        setProducts(remaining);
+                    }
+                    console.log("You Product are deleted");
+                })
         }
     }
 

@@ -19,7 +19,7 @@ const AddItem = () => {
         // console.log(id, name, image, description, quantity, supplier, price);
 
         const url = 'http://localhost:5000/uploadItem';
-
+        //সার্ভার সাইটে ডাটা পোস্ট করা
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -38,7 +38,7 @@ const AddItem = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+
                 if (!data.success) {
                     return toast.error(data.error)
                 } else {
@@ -57,7 +57,7 @@ const AddItem = () => {
                 <h2 className='text-center'>New Products Upload Form</h2>
                 <div className='w-50  mx-auto'>
                     <form onSubmit={handleProductUpload}>
-
+                        {/* <ToastContainer /> */}
                         <div className="mb-3">
                             <label className="form-label">Product Id</label>
 
@@ -101,7 +101,7 @@ const AddItem = () => {
                         </div>
 
                         <button type="submit" className="btn btn-primary">Upload</button>
-                        <ToastContainer />
+
                     </form>
                 </div>
             </div>
