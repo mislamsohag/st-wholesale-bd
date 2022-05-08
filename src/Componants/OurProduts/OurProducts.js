@@ -20,7 +20,6 @@ const OurProducts = () => {
 
     return (
         <>
-            <Navber></Navber>
             <section className='container text-center'>
                 <div className='row'>
                     {
@@ -33,7 +32,7 @@ const OurProducts = () => {
                                             <h5 className="card-title">{product.name}</h5>
                                             <div className='d-flex d-flex justify-content-between text-body mt-3'>
                                                 <p className='m-0 p-0'>৳ {product.price}</p>
-                                                <p className='m-0 p-0'>Stock : </p>
+                                                <p className='m-0 p-0'>Stock : {product.quantity} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +54,6 @@ const OurProducts = () => {
                     </select>
                 </div>
             </section>
-            <Footer></Footer>
         </>
     );
 };

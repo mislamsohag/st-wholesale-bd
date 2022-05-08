@@ -47,7 +47,7 @@ const ProductDetails = () => {
                                 <div className='mt-5 d-flex justify-content-between'>
                                     <span className='bg-secondary px-3 rounded py-2 text-white'>৳ {productDetails.price}</span>
 
-                                    <Link to="/" className='btn btn-primary px-3 rounded py-2 text-white'>Buy Now</Link>
+                                    <Link to="/" className='btn btn-primary px-3 rounded py-2 text-white'>Delevery</Link>
 
                                     <span className='bg-secondary px-3 rounded py-2 text-white'>
                                         Stock : {productDetails.quantity}
