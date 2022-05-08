@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Navber from '../../Shared/Header/Navber/Navber';
-import auth from './../../Firebase.init';
+import auth from '../../../Firebase.init';
+import Navber from '../../../Shared/Header/Navber/Navber';
+
+
 
 
 const Register = () => {
@@ -97,7 +99,7 @@ const Register = () => {
         // const agree = event.target.terms.checked;
         // updateProfile({ displayName: name });
 
-        navigate('/home');
+        navigate('/login');
     }
 
     return (

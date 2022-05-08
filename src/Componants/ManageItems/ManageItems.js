@@ -53,11 +53,11 @@ const ManageItems = () => {
 
                                         <p className='bg-light rounded py-1 px-3'>৳ : {product.price}</p>
 
-                                        <p className='bg-light rounded py-1 px-3'>Stock : </p>
+                                        <p className='bg-light rounded py-1 px-3'>Stock : {product.quantity} </p>
 
                                         <div className='d-flex d-flex align-items-center justify-content-between text-body mt-3'>
 
-                                            <Link className='btn btn-primary' to={product._id}>Update Product</Link>
+                                            <Link className='btn btn-primary' to={`/manageItems/${product?._id}`}>Update Product</Link>
 
                                             <button onClick={() => handleProductDelete(product._id)} className='btn btn-danger' >Delete Product</button>
 

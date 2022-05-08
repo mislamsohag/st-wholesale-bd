@@ -22,7 +22,7 @@ const ProductDetails = () => {
             const matchData = details.find(detail => detail._id === _id)
             setProductDetail(matchData)
         }
-        console.log(productDetails)
+        // console.log(productDetails)
 
     }, [details, _id, productDetails]);
 

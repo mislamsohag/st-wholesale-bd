@@ -1,35 +1,24 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-
-import { useAuthState } from "react-firebase-hooks/auth";
-import { toast } from "react-toastify";
-import auth from "../../Firebase.init";
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useParams } from 'react-router-dom';
+import auth from '../../Firebase.init';
+import { toast, ToastContainer } from "react-toastify";
 import Navber from "../../Shared/Header/Navber/Navber";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductUpdate = () => {
     const [user, loading, error] = useAuthState(auth);
-    // const { _id } = useParams();
-    // const [details, setDetails] = useState([]);
-    // const [productDetails, setProductDetail] = useState([]);
+    const { id } = useParams();
+    const [product, setProduct] = useState({});
 
+    useEffect(() => {
+        const url = (`http://localhost:5000/ourProducts/${id}`)
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setProduct(data))
+    }, []);
 
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/ourProducts")
-    //         .then(res => res.json())
-    //         .then(data => setDetails(data))
-    // }, []);
-
-    // // console.log(_id, details)
-
-    // useEffect(() => {
-    //     if (details.length > 0) {
-    //         const matchData = details.find(detail => detail._id === _id)
-    //         setProductDetail(matchData)
-    //     }
-    //     console.log(productDetails)
-
-    // }, [details, _id, productDetails]);
-
+    // console.log(id)
 
     const handleProductUpdate = (event) => {
         event.preventDefault();
@@ -37,43 +26,41 @@ const ProductUpdate = () => {
         const description = event.target.pDetails.value;
         const quantity = event.target.pQuantity.value;
         const price = event.target.pPrice.value;
-        console.log(image, description, quantity, price);
 
-        const url = 'http://localhost:5000/uploadItem';
+        const updateProduct = {
+            image, description, quantity, price
+        };
+        // console.log(image, description, quantity, price);
+
+        const url = (`http://localhost:5000/ourProducts/${id}`)
 
         fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                image,
-                description,
-                quantity,
-                price
-            }),
+            method: 'PUT',
             headers: {
-                'authorization': `${user.email} ${localStorage.getItem('accessToken')}`,
-                'Content-type': 'application/json; charset=UTF-8',
+                'Content-type': 'application/json'
             },
+            body: JSON.stringify(updateProduct)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (!data.success) {
                     return toast.error(data.error)
                 } else {
                     toast.success(data.message);
-                    event.target.reset(); //মূলত এর মাধ্যমে ইনপুট ফিল্ড খালি করে।
+                    event.target.reset();
+                    <ToastContainer />
                 }
-            });
+            })
     }
 
     return (
         <>
             <Navber></Navber>
             <div className='container'>
-                <h2 className='text-center'>Products Update Form</h2>
+                <h1>update:{product.name} </h1>
                 <div className='w-50  mx-auto'>
-                    <form onSubmit={handleProductUpdate}>
 
+                    <form onSubmit={handleProductUpdate} >
                         <div className="mb-3">
                             <label className="form-label">Image Link</label>
 
@@ -107,3 +94,4 @@ const ProductUpdate = () => {
 };
 
 export default ProductUpdate;
+

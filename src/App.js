@@ -1,20 +1,17 @@
 
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import About from './Componants/About/About';
 import AddItem from './Componants/AddItem/AddItem';
-
 import Home from './Componants/Home/Home';
-import Login from './Componants/Login/Login';
 import ManageItems from './Componants/ManageItems/ManageItems';
 import MyItems from './Componants/MyItems/MyItems';
-import Notfound from './Componants/Notfound/Notfound';
 import OurProducts from './Componants/OurProduts/OurProducts';
 import PrivateRoute from './Componants/PrivateRoute/PrivateRoute';
-import Register from './Componants/Register/Register';
 import ProductDetails from './Componants/ProductDetails/ProductDetails';
 import ProductUpdate from './Componants/ProductUpdate/ProductUpdate';
 
+import Register from './Componants/Auth/Register/Register';
+import Login from './Componants/Auth/Login/Login';
 
 
 function App() {
@@ -25,7 +22,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/ourProducts" element={<OurProducts />} />
         <Route path="/ourProducts/:_id" element={<ProductDetails />} />
-        <Route path="/ourProducts/:_id" element={<ProductUpdate />} />
         <Route path="/myItems" element={
           <PrivateRoute>
             <MyItems />
@@ -36,7 +32,7 @@ function App() {
             <ManageItems />
           </PrivateRoute>
         } />
-        <Route path="/manageItems/:_id" element={
+        <Route path="/manageItems/:id" element={
           <PrivateRoute>
             <ProductUpdate />
           </PrivateRoute>

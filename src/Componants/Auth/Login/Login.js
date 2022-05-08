@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Navber from '../../Shared/Header/Navber/Navber';
 import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import auth from './../../Firebase.init';
 import 'react-toastify/dist/ReactToastify.css';
+import Navber from '../../../Shared/Header/Navber/Navber';
+import auth from '../../../Firebase.init';
 
 const Login = () => {
     const [signInWithEmail, signInWithEmailUser, signInWithEmailLoading, signInWithEmailError] = useSignInWithEmailAndPassword(auth);

@@ -3,13 +3,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import auth from '../../Firebase.init';
 import Navber from '../../Shared/Header/Navber/Navber';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddItem = () => {
     const [user, loading, error] = useAuthState(auth);
 
     const handleProductUpload = (event) => {
         event.preventDefault();
-        const id = event.target.pId.value;
+        // const id = event.target.pId.value;
         const name = event.target.pName.value;
         const image = event.target.imgLink.value;
         const description = event.target.pDetails.value;
@@ -23,7 +24,7 @@ const AddItem = () => {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-                id,
+                // id,
                 name,
                 image,
                 description,
@@ -45,9 +46,7 @@ const AddItem = () => {
                     toast.success(data.message);
                     event.target.reset(); //মূলত এর মাধ্যমে ইনপুট ফিল্ড খালি করে।
                 }
-
             });
-
     }
 
     return (
@@ -56,14 +55,8 @@ const AddItem = () => {
             <div className='container'>
                 <h2 className='text-center'>New Products Upload Form</h2>
                 <div className='w-50  mx-auto'>
+
                     <form onSubmit={handleProductUpload}>
-                        {/* <ToastContainer /> */}
-                        <div className="mb-3">
-                            <label className="form-label">Product Id</label>
-
-                            <input type="text" className="form-control" name="pId" required />
-                        </div>
-
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Product Name</label>
 
@@ -101,7 +94,7 @@ const AddItem = () => {
                         </div>
 
                         <button type="submit" className="btn btn-primary">Upload</button>
-
+                        <ToastContainer />
                     </form>
                 </div>
             </div>
