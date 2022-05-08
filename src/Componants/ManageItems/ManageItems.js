@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../../Shared/Footer/Footer";
 import Navber from "../../Shared/Header/Navber/Navber";
 
 
@@ -35,7 +36,7 @@ const ManageItems = () => {
     }
 
     return (
-        <div>
+        <>
             <Navber></Navber>
             <section className='container'>
                 <div className='row'>
@@ -81,7 +82,8 @@ const ManageItems = () => {
                     </select>
                 </div>
             </section>
-        </div>
+            <Footer></Footer>
+        </>
     );
 };
 

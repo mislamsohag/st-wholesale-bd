@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import auth from '../../Firebase.init';
 import Navber from '../../Shared/Header/Navber/Navber';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../../Shared/Footer/Footer';
 
 const AddItem = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -98,6 +99,7 @@ const AddItem = () => {
                     </form>
                 </div>
             </div>
+            <Footer></Footer>
         </>
     );
 };

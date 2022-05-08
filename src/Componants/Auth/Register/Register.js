@@ -3,6 +3,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../Firebase.init';
+import Footer from '../../../Shared/Footer/Footer';
 import Navber from '../../../Shared/Header/Navber/Navber';
 
 
@@ -78,7 +79,7 @@ const Register = () => {
                     toast("Your password is Wrong");
                     break;
                 default:
-                    toast("something went wrong");
+
             }
         }
     }, [hookError]);
@@ -99,7 +100,7 @@ const Register = () => {
         const agree = event.target.terms.checked;
         // updateProfile({ displayName: name });
 
-        navigate('/login');
+        navigate('/');
     }
 
     return (
@@ -161,7 +162,7 @@ const Register = () => {
                                             </form>
                                             <p className='text-center'>Already have an account? <Link to="/login" className='text-primary pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link> </p>
 
-                                            {/* <SocialLogin></SocialLogin> */}
+
 
                                         </div>
                                         <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">

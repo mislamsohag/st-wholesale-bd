@@ -5,6 +5,7 @@ import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from
 import 'react-toastify/dist/ReactToastify.css';
 import Navber from '../../../Shared/Header/Navber/Navber';
 import auth from '../../../Firebase.init';
+import Footer from '../../../Shared/Footer/Footer';
 
 const Login = () => {
     const [signInWithEmail, signInWithEmailUser, signInWithEmailLoading, signInWithEmailError] = useSignInWithEmailAndPassword(auth);
@@ -80,7 +81,7 @@ const Login = () => {
 
     useEffect(() => {
         if (signInWithEmailUser) {
-            navigate(from)
+            navigate(from, { replace: true })
         }
     }, [signInWithEmailUser, googleUser]);
 
@@ -92,9 +93,6 @@ const Login = () => {
 
                 case "auth/invalid-password": toast("Your password is wrong");
                     break;
-
-                default: toast("something went wrong")
-                // default: toast("something went wrong")
             }
         }
     }, [signInWithEmailError, googleErr])
@@ -103,7 +101,7 @@ const Login = () => {
         signInWithGoogle()
     }
     return (
-        <div>
+        <>
             <Navber></Navber>
             <div className="container w-50 mx-auto">
                 <h2 className='text-3xl text-center my-2'>LOGIN</h2>
@@ -137,7 +135,8 @@ const Login = () => {
                     <button className='btn btn-info' onClick={handleGoogleSignIn}>Google Login</button>
                 </div>
             </div>
-        </div>
+            <Footer></Footer>
+        </>
     );
 };
 
