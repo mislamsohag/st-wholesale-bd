@@ -2,6 +2,7 @@ import Navber from '../../Shared/Header/Navber/Navber';
 import { Link, NavLink } from 'react-router-dom';
 // import useProducts from '../../Hooks/useProducts';
 import { useEffect, useState } from 'react';
+import Footer from '../../Shared/Footer/Footer';
 // import { toast } from 'react-toastify';
 
 
@@ -18,7 +19,7 @@ const OurProducts = () => {
     }, [limit, pageNumber]);
 
     return (
-        <div>
+        <>
             <Navber></Navber>
             <section className='container text-center'>
                 <div className='row'>
@@ -54,7 +55,8 @@ const OurProducts = () => {
                     </select>
                 </div>
             </section>
-        </div>
+            <Footer></Footer>
+        </>
     );
 };
 
