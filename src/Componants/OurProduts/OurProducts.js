@@ -11,7 +11,7 @@ const OurProducts = () => {
     const [pageNumber, setPageNumber] = useState(0);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/ourProducts?limit=${limit}&pageNumber=${pageNumber}`)
+        fetch(`https://secure-chamber-93784.herokuapp.com/ourProducts?limit=${limit}&pageNumber=${pageNumber}`)
             .then(res => res.json())
             .then(data => setProducts(data));
 

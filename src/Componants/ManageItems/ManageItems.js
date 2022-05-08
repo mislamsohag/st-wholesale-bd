@@ -9,7 +9,7 @@ const ManageItems = () => {
     const [pageNumber, setPageNumber] = useState(0);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/ourProducts?limit=${limit}&pageNumber=${pageNumber}`)
+        fetch(`https://secure-chamber-93784.herokuapp.com/ourProducts?limit=${limit}&pageNumber=${pageNumber}`)
             .then(res => res.json())
             .then(data => setProducts(data));
 
@@ -19,7 +19,7 @@ const ManageItems = () => {
     const handleProductDelete = (id) => {
         const proceed = window.confirm("Are you sure you want to delete?")
         if (proceed) {
-            const url = (`http://localhost:5000/ourProducts/${id}`)
+            const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
             fetch(url, {
                 method: 'DELETE'
             })

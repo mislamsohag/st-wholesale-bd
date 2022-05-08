@@ -12,7 +12,7 @@ const ProductUpdate = () => {
     const [product, setProduct] = useState({});
 
     useEffect(() => {
-        const url = (`http://localhost:5000/ourProducts/${id}`)
+        const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
         fetch(url)
             .then(res => res.json())
             .then(data => setProduct(data))
@@ -32,7 +32,7 @@ const ProductUpdate = () => {
         };
         // console.log(image, description, quantity, price);
 
-        const url = (`http://localhost:5000/ourProducts/${id}`)
+        const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
 
         fetch(url, {
             method: 'PUT',

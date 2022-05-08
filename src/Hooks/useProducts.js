@@ -6,8 +6,8 @@ const useProducts = () => {
     // const [limit, setLimit] = useState(5);
 
     // useEffect(() => {
-    //     // fetch('http://localhost:5000/ourProducts')
-    //     fetch(`http://localhost:5000/ourProducts?limit=${limit}&pageNumber=1`)
+    //     // fetch('https://secure-chamber-93784.herokuapp.com/ourProducts')
+    //     fetch(`https://secure-chamber-93784.herokuapp.com/ourProducts?limit=${limit}&pageNumber=1`)
     //         .then(res => res.json())
     //         .then(data => setProducts(data));
     // }, [limit]);

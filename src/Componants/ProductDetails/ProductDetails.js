@@ -10,7 +10,7 @@ const ProductDetails = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:5000/ourProducts")
+        fetch("https://secure-chamber-93784.herokuapp.com/ourProducts")
             .then(res => res.json())
             .then(data => setDetails(data))
     }, []);

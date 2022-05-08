@@ -19,7 +19,7 @@ const AddItem = () => {
         const price = event.target.pPrice.value;
         // console.log(id, name, image, description, quantity, supplier, price);
 
-        const url = 'http://localhost:5000/uploadItem';
+        const url = 'http://:5000/uploadItem';
         //সার্ভার সাইটে ডাটা পোস্ট করা
         fetch(url, {
             method: 'POST',

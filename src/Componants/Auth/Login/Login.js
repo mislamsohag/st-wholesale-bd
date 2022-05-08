@@ -61,7 +61,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || "/";
 
     if (user) {
-        const url = 'http://localhost:5000/login'
+        const url = 'https://secure-chamber-93784.herokuapp.com/login'
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
