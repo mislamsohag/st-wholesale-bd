@@ -25,12 +25,6 @@ const Navber = () => {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
                             </li>
-                            {/* <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/ourProducts">Our Products</Link>
-                            </li> */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/myItems">My Items</Link>
-                            </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/manageItems">Manage Items</Link>
                             </li>
@@ -39,6 +33,9 @@ const Navber = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/blogs">Blogs</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/myItems">My Items</Link>
                             </li>
                         </ul>
                         <div className="d-flex">

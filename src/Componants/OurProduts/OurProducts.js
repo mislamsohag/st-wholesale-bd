@@ -18,6 +18,24 @@ const OurProducts = () => {
 
     }, [limit, pageNumber]);
 
+    // const handleProductDetail = (id) => {
+    //     const proceed = window.confirm("Are you sure you want to delete?")
+    //     if (proceed) {
+    //         const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
+    //         fetch(url, {
+    //             method: 'DELETE'
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 if (data.deletedCount > 0) {
+    //                     const remaining = products.filter(product => product._id !== id)
+    //                     setProducts(remaining);
+    //                 }
+    //                 console.log("You Product are deleted");
+    //             })
+    //     }
+    // }
+
     return (
         <>
             <section className='container text-center'>
@@ -25,18 +43,20 @@ const OurProducts = () => {
                     {
                         products?.length ? products?.map(product =>
                             <div key={product._id} className='col-sm-12 col-md-6 col-lg-4 g-3'>
-                                <NavLink className='nav-link' to={product._id}>
-                                    <div className="card h-100" >
-                                        <img src={product.image} className="card-img-top" alt="Product Image" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{product.name}</h5>
-                                            <div className='d-flex d-flex justify-content-between text-body mt-3'>
-                                                <p className='m-0 p-0'>৳ {product.price}</p>
-                                                <p className='m-0 p-0'>Stock : {product.quantity} </p>
-                                            </div>
+                                <div className="card h-100" >
+                                    <img src={product.image} className="card-img-top" alt="Product Image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{product.name}</h5>
+                                        <div className='d-flex d-flex justify-content-between text-body mt-3'>
+                                            <p className='m-0 p-0'>৳ {product.price}</p>
+
+                                            {/* <button className='btn btn-secondary' onClick={() => handleProductDetail(product._id)}>Product Details</button> */}
+
+                                            <p className='m-0 p-0'>Stock : {product.quantity} </p>
                                         </div>
                                     </div>
-                                </NavLink>
+                                </div>
+
                             </div>
                         ) : <div>No Product Found</div>
                     }

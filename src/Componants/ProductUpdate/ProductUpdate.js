@@ -57,7 +57,7 @@ const ProductUpdate = () => {
         <>
             <Navber></Navber>
             <div className='container'>
-                <h1>update:{product.name} </h1>
+                <h1 className='text-center my-3'>update:{product.name} </h1>
                 <div className='w-50  mx-auto'>
 
                     <form onSubmit={handleProductUpdate} >
