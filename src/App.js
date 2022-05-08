@@ -9,9 +9,9 @@ import OurProducts from './Componants/OurProduts/OurProducts';
 import PrivateRoute from './Componants/PrivateRoute/PrivateRoute';
 import ProductDetails from './Componants/ProductDetails/ProductDetails';
 import ProductUpdate from './Componants/ProductUpdate/ProductUpdate';
-
 import Register from './Componants/Auth/Register/Register';
 import Login from './Componants/Auth/Login/Login';
+import NotFound from './Componants/Notfound/Notfound';
 
 
 function App() {
@@ -45,8 +45,7 @@ function App() {
         <Route path="/about" element={<About></About>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
-        {/* <Route path="/*" element={<Notfound></Notfound>} /> */}
-
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -83,7 +83,7 @@ const Register = () => {
         }
     }, [hookError]);
 
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    // const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
 
@@ -94,9 +94,9 @@ const Register = () => {
 
     const handleRegister = (event) => {
         event.preventDefault();
-        createUserWithEmailAndPassword(userValue.email, userValue.password);
+        createUserWithEmailAndPassword(auth, userValue.email, userValue.password);
 
-        // const agree = event.target.terms.checked;
+        const agree = event.target.terms.checked;
         // updateProfile({ displayName: name });
 
         navigate('/login');
