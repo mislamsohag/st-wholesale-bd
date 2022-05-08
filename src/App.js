@@ -12,6 +12,7 @@ import ProductUpdate from './Componants/ProductUpdate/ProductUpdate';
 import Register from './Componants/Auth/Register/Register';
 import Login from './Componants/Auth/Login/Login';
 import NotFound from './Componants/Notfound/Notfound';
+import Blogs from './Componants/Blogs/Blogs';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <AddItem />
           </PrivateRoute>
         } />
+        <Route path="/blogs" element={<Blogs></Blogs>} />
         <Route path="/about" element={<About></About>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />

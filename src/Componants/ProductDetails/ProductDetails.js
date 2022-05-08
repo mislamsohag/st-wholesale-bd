@@ -50,7 +50,7 @@ const ProductDetails = () => {
                                     <Link to="/" className='btn btn-primary px-3 rounded py-2 text-white'>Buy Now</Link>
 
                                     <span className='bg-secondary px-3 rounded py-2 text-white'>
-                                        Stock :
+                                        Stock : {productDetails.quantity}
                                     </span>
 
                                 </div>

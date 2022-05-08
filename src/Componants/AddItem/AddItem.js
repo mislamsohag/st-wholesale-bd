@@ -20,7 +20,7 @@ const AddItem = () => {
         const price = event.target.pPrice.value;
         // console.log(id, name, image, description, quantity, supplier, price);
 
-        const url = 'http://:5000/uploadItem';
+        const url = 'https://secure-chamber-93784.herokuapp.com/uploadItem';
         //সার্ভার সাইটে ডাটা পোস্ট করা
         fetch(url, {
             method: 'POST',
