@@ -19,7 +19,6 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/ourProducts" element={<OurProducts />} />
         <Route path="/ourProducts/:_id" element={<ProductDetails />} />
@@ -47,7 +46,8 @@ function App() {
         <Route path="/about" element={<About></About>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
-        <Route path="/*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   );

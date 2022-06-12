@@ -15,7 +15,7 @@ const ProductDetails = () => {
             .then(data => setDetails(data))
     }, []);
 
-    // console.log(_id, details)
+    console.log(_id, details)
 
     useEffect(() => {
         if (details.length > 0) {

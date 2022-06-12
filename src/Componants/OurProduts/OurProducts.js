@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 // import useProducts from '../../Hooks/useProducts';
 import { useEffect, useState } from 'react';
 import Footer from '../../Shared/Footer/Footer';
-// import { toast } from 'react-toastify';
+
 
 
 const OurProducts = () => {
@@ -18,23 +18,23 @@ const OurProducts = () => {
 
     }, [limit, pageNumber]);
 
-    // const handleProductDetail = (id) => {
-    //     const proceed = window.confirm("Are you sure you want to delete?")
-    //     if (proceed) {
-    //         const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
-    //         fetch(url, {
-    //             method: 'DELETE'
-    //         })
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 if (data.deletedCount > 0) {
-    //                     const remaining = products.filter(product => product._id !== id)
-    //                     setProducts(remaining);
-    //                 }
-    //                 console.log("You Product are deleted");
-    //             })
-    //     }
-    // }
+    const handleProductDetail = (id) => {
+        const proceed = window.confirm("Are you sure you want to delete?")
+        if (proceed) {
+            const url = (`https://secure-chamber-93784.herokuapp.com/ourProducts/${id}`)
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        const remaining = products.filter(product => product._id !== id)
+                        setProducts(remaining);
+                    }
+                    console.log("You Product are deleted");
+                })
+        }
+    }
 
     return (
         <>
@@ -42,7 +42,7 @@ const OurProducts = () => {
                 <div className='row'>
                     {
                         products?.length ? products?.map(product =>
-                            <div key={product._id} className='col-sm-12 col-md-6 col-lg-4 g-3'>
+                            <Link to={`/${product?._id}`} key={product._id} className='col-sm-12 col-md-6 col-lg-4 g-3'>
                                 <div className="card h-100" >
                                     <img src={product.image} className="card-img-top" alt="Product Image" />
                                     <div className="card-body">
@@ -50,14 +50,12 @@ const OurProducts = () => {
                                         <div className='d-flex d-flex justify-content-between text-body mt-3'>
                                             <p className='m-0 p-0'>৳ {product.price}</p>
 
-                                            {/* <button className='btn btn-secondary' onClick={() => handleProductDetail(product._id)}>Product Details</button> */}
-
                                             <p className='m-0 p-0'>Stock : {product.quantity} </p>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
+                            </Link>
                         ) : <div>No Product Found</div>
                     }
                 </div>

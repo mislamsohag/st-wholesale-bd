@@ -1,107 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from "react";
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import auth from "../../../Firebase.init";
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import auth from '../../../Firebase.init';
-import Footer from '../../../Shared/Footer/Footer';
-import Navber from '../../../Shared/Header/Navber/Navber';
+import Spinner from "../../../Shared/Spinner/Spinner";
+import Navber from "../../../Shared/Header/Navber/Navber";
+import SocialLogin from "../SocialLogin/SocialLogin";
+
 
 
 
 
 const Register = () => {
     const [agree, setAgree] = useState(false);
-
-    const [userValue, setUserValue] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPass: "",
-    });
-    const [err, setErr] = useState({
-        email: "",
-        password: "",
-    });
-
-    const [showPass, setShowPass] = useState(false);
-
     const [
-        createUserWithEmailAndPassword, user, loading, hookError] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-    const handleName = (event) => {
-        const name = test(event.target.value);
-
-    };
-
-    const handleEmail = (event) => {
-        const emailRegex = /\S+@\S+\.\S+/;
-        const validEmail = emailRegex.test(event.target.value);
-
-        if (validEmail) {
-            setUserValue({ ...userValue, email: event.target.value });
-            setErr({ ...err, email: "" });
-        } else {
-            setErr({ ...err, email: "Invalid email" });
-            setUserValue({ ...userValue, email: "" });
-        }
-    };
-
-    const handlePassword = (event) => {
-        const passwordRegex = /.{8,}/;
-        const validPassword = passwordRegex.test(event.target.value);
-
-        if (validPassword) {
-            setUserValue({ ...userValue, password: event.target.value });
-            setErr({ ...err, password: "" });
-        } else {
-            setErr({ ...err, password: "Minimum 8 characters!" });
-            setUserValue({ ...userValue, password: "" });
-        }
-    };
-
-    const handleConfirmPassword = (event) => {
-        if (event.target.value === userValue.password) {
-            setUserValue({ ...userValue, confirmPass: event.target.value });
-            setErr({ ...err, password: "" });
-        } else {
-            setErr({ ...err, password: "Password's dosn't match" });
-            setUserValue({ ...userValue, confirmPass: "" });
-        }
-    };
-
-    useEffect(() => {
-        if (hookError) {
-            switch (hookError?.code) {
-                case "auth/invalid-email":
-                    toast("Invalid email dosn't work, please provide a valid email");
-                    break;
-                case "auth/invalid-password":
-                    toast("Your password is Wrong");
-                    break;
-                default:
-
-            }
-        }
-    }, [hookError]);
-
-    // const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const navigate = useNavigate();
 
     const navigateLogin = () => {
         navigate('/login');
     }
 
-
-    const handleRegister = (event) => {
-        event.preventDefault();
-        createUserWithEmailAndPassword(auth, userValue.email, userValue.password);
-
-        const agree = event.target.terms.checked;
-        // updateProfile({ displayName: name });
-
-        navigate('/');
+    if (loading || updating) {
+        return <Spinner></Spinner>
     }
+
+    if (user) {
+        console.log('user', user);
+    }
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        console.log('Updated profile');
+        navigate('/home');
+    }
+
 
     return (
         <>
@@ -115,51 +60,40 @@ const Register = () => {
                                     <div className="row justify-content-center">
                                         <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                             <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Please Register</p>
-                                            <form onSubmit={handleRegister} className="mx-1 mx-md-4">
+                                            <form onSubmit={handleRegister}>
 
                                                 <div className="form-outline flex-fill mb-4">
                                                     <label className="form-label" htmlFor="form3Example1c">Your Name</label>
-                                                    <input type="text" onChange={handleName} id="form3Example1c" className="form-control" />
+                                                    <input type="text" name="name" id="form3Example1c" className="form-control" />
                                                 </div>
 
                                                 <div className="form-outline flex-fill mb-4">
                                                     <label className="form-label" htmlFor="form3Example3c">Your Email</label>
-                                                    <input type="email" onChange={handleEmail} id="form3Example3c" className="form-control" />
+                                                    <input type="email" name="email" id="form3Example3c" className="form-control" required />
                                                 </div>
-
-                                                {err?.email && <p className="error-message">{err.email}</p>}
-
 
                                                 <div className="form-outline flex-fill mb-4">
-
                                                     <label className="form-label" htmlFor="form3Example4c">Password</label>
-
-                                                    <input type={showPass ? "text" : "password"} id="form3Example4c" className="form-control" onChange={handlePassword} />
+                                                    <input id="form3Example4c" className="form-control" name="password" required />
                                                 </div>
-
-
-                                                {err?.password && <p className="error-message">{err.password}</p>}
-
 
                                                 <div className="form-outline flex-fill mb-4">
                                                     <label className="form-label" htmlFor="form3Example4cd">Repeat your password</label>
-                                                    <input onChange={handleConfirmPassword} type={showPass ? "text" : "password"} id="form3Example4cd" className="form-control" />
+                                                    <input id="form3Example4cd" className="form-control" required />
                                                 </div>
 
 
-                                                <div className="form-check d-flex justify-content-center mb-5">
-                                                    <input onClick={() => setAgree(!agree)} className="form-check-input me-2" type="checkbox" name="terms" id="form2Example3c" />
+                                                <input onClick={() => setAgree(!agree)} type="checkbox" name="terms" id="terms" />
 
-                                                    <label className={`ps-2 ${agree ? '' : 'text-danger'}`} htmlFor="terms">I agree all statements in Terms and Conditions</label>
-                                                </div>
-
+                                                <label className={`ps-2 ${agree ? '' : 'text-danger'}`} htmlFor="terms">Accept our Terms and Conditions</label>
                                                 <input
                                                     disabled={!agree}
-                                                    className="d-flex justify-content-center mx-4 mb-3 mb-lg-4 btn btn-primary"
+                                                    className='w-50 mx-auto btn btn-primary mt-2'
                                                     type="submit"
                                                     value="Register" />
-
                                             </form>
+                                            <p>Already have an account? <Link to="/login" className='text-primary pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link> </p>
+                                            <SocialLogin></SocialLogin>
                                             <p className='text-center'>Already have an account? <Link to="/login" className='text-primary pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link> </p>
 
 

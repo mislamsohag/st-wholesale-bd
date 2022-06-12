@@ -1,65 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import 'react-toastify/dist/ReactToastify.css';
 import Navber from '../../../Shared/Header/Navber/Navber';
-import auth from '../../../Firebase.init';
 import Footer from '../../../Shared/Footer/Footer';
+import 'react-toastify/dist/ReactToastify.css';
+import auth from '../../../Firebase.init';
+import Spinner from '../../../Shared/Spinner/Spinner';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+
 
 const Login = () => {
-    const [signInWithEmail, signInWithEmailUser, signInWithEmailLoading, signInWithEmailError] = useSignInWithEmailAndPassword(auth);
+    const emailRef = useRef('');
+    const passwordRef = useRef('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
+    let from = location.state?.from?.pathname || "/";
+    let errorElement;
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
 
-    const [user, loading, error] = useAuthState(auth);
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
-    const [userValue, setUserValue] = useState({
-        email: "",
-        password: "",
-    })
-    const [err, setErr] = useState({
-        email: "",
-        password: "",
-    })
-
-    //email validation 
-    const handleEmail = (event) => {
-        const emailRegex = /\S+@\S+\.\S+/;
-        const validEmail = emailRegex.test(event.target.value);
-
-        if (validEmail) {
-            setUserValue({ ...userValue, email: event.target.value })
-            setErr({ ...err, email: "" })
-        } else {
-            setErr({ ...err, email: "Invalid email format" })
-            setUserValue({ ...userValue, email: "" })
-        }
+    if (loading || sending) {
+        return <Spinner></Spinner>
     }
-
-    //password validation
-    const handlePassword = (event) => {
-        const passwordRegex = /.{8,}/;
-        const validPassword = passwordRegex.test(event.target.value);
-
-        if (validPassword) {
-            setUserValue({ ...userValue, password: event.target.value });
-            setErr({ ...err, password: "" })
-        } else {
-            setErr({ ...err, password: "Please enter minmum 8 characters!" })
-            setUserValue({ ...userValue, password: "" })
-        }
-    }
-
-    //login and page reload control
-    const handleLogin = (event) => {
-        event.preventDefault();
-        signInWithEmail(userValue.email, userValue.password);
-    }
-
-    const navigate = useNavigate()
-    const location = useLocation()
-    const from = location.state?.from?.pathname || "/";
 
     if (user) {
         const url = 'https://secure-chamber-93784.herokuapp.com/login'
@@ -79,61 +50,61 @@ const Login = () => {
             });
     }
 
-    useEffect(() => {
-        if (signInWithEmailUser) {
-            navigate(from, { replace: true })
+    if (error) {
+        errorElement = <p className='text-danger'>Error: {error?.message}</p>
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        signInWithEmailAndPassword(email, password);
+    }
+
+    const navigateRegister = event => {
+        navigate('/register');
+    }
+
+    const resetPassword = async () => {
+        const email = emailRef.current.value;
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Sent email');
         }
-    }, [signInWithEmailUser, googleUser]);
-
-    useEffect(() => {
-        if (err) {
-            switch (err?.code) {
-                case "auth/invalid-email": toast("Your email is invalid,  provide a valid email please!");
-                    break;
-
-                case "auth/invalid-password": toast("Your password is wrong");
-                    break;
-            }
+        else {
+            toast('please enter your email address');
         }
-    }, [signInWithEmailError, googleErr])
-
-    const handleGoogleSignIn = () => {
-        signInWithGoogle()
     }
     return (
         <>
             <Navber></Navber>
-            <div className="container w-50 mx-auto">
-                <h2 className='text-3xl text-center my-2'>LOGIN</h2>
-                <form onSubmit={handleLogin}>
+            <div className='container w-50 mx-auto'>
+                <h3 title="Login"></h3>
+                <h2 className='text-center my-2'>LOGIN</h2>
+                <form onSubmit={handleSubmit}>
+
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
 
-                        <input type="text" placeholder="Enter Valid Email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={handleEmail} />
+                        <input type="text" placeholder="Enter Valid Email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ref={emailRef} />
                     </div>
-
-                    {err?.email && <p className="text-danger">{err.email}</p>}
 
                     <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                        <label htmlFor="exampleInputPassword1" className="form-label" required>Password</label>
 
-                        <input type="password" placeholder="password" className="form-control" id="exampleInputPassword1" onChange={handlePassword} />
+                        <input type="password" placeholder="password" className="form-control" id="exampleInputPassword1" ref={passwordRef} required />
                     </div>
 
-                    {err?.password && <p className="text-danger">{err.password}</p>}
-
-                    <button className="btn btn-primary">Login</button>
-                    <ToastContainer />
-                    <p className="text-danger">Don't have an account? <Link to="/register"><span className="text-primary">Register Please</span></Link> </p>
+                    <button className="btn btn-primary mb-3" type="submit">
+                        LOGIN
+                    </button>
                 </form>
-                <div className='d-flex'>
-                    <hr className='w-50 mx-auto' />
-                    <span>or</span>
-                    <hr className='w-50 mx-auto' />
-                </div>
-                <div className='container text-center'>
-                    <button className='btn btn-info' onClick={handleGoogleSignIn}>Google Login</button>
-                </div>
+                {errorElement}
+                <p>Aren't You Registered? <Link to="/register" className='text-primary pe-auto text-decoration-none' onClick={navigateRegister}>Please Register</Link> </p>
+                <p>Forget Password? <button className='btn btn-link text-primary pe-auto text-decoration-none' onClick={resetPassword}>Reset Password</button> </p>
+
+                <ToastContainer />
             </div>
             <Footer></Footer>
         </>

@@ -3,13 +3,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 
 import logo from '../../../images/logo.png';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import auth from './../../../Firebase.init';
 
 const Navber = () => {
     const [user, loading, error] = useAuthState(auth);
 
-    const logout = () => {
+    const handleSignOut = () => {
         signOut(auth);
     };
     return (
@@ -41,7 +41,7 @@ const Navber = () => {
                         <div className="d-flex">
                             {
                                 user ? <span>{user.displayName}
-                                    <button className='btn btn-light' onClick={logout} >Log Out</button>
+                                    <button className='btn btn-light' onClick={handleSignOut} >Log Out</button>
                                 </span> : <Link className="nav-link" to="/login">Login</Link>
                             }
                         </div>
